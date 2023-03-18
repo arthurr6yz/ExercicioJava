@@ -2,9 +2,9 @@ package org.exercicio.banco.template.model;
 
 /**
 *
-* Nome:
-* Curso:
-* Matrícula:
+* Nome: Arthur Alves Pereira Dos Santos
+* Curso: Informatica para internet(IPI)
+* Matrícula: 20222INFIG0361
 * 
 */
 public class ContaBancaria {
@@ -44,10 +44,14 @@ public class ContaBancaria {
 	 * 
 	 * @param valor
 	 */
-	public void depositar(double valor) {
-		
+	 public void depositar(double valor) {
+		 if(valor > 0) {
+			 this.saldo += valor;
+		 } else {
+			 System.out.print("Valor invalido para deposito");
+		 } 
 	}
-
+		
 	/**
 	 * Metodo sacar deve descrementar do saldo o valor passado como argumento.
 	 * Deve-se verificar primeiramente se a conta esta ativa, caso nao esteja a msg
@@ -61,9 +65,19 @@ public class ContaBancaria {
 	 * @param valor
 	 */
 	public void sacar(double valor) {
-		
+		if(status = true) {
+			if(valor <= 0) {
+				System.out.print("Valor invalido para saque");
+			} else if (valor > this.saldo) {
+				System.out.print("Saldo insuficiente");
+			} else {
+				this.saldo -= valor;
+			}
+		} else {
+			System.out.print("Conta inativa");
+		}
 	}
-
+		
 	/**
 	 * O metodo fechar conta verifica se a conta ja esta inativa, caso esteja a msg
 	 * "Conta ja inativa." deve ser exibida no console. Caso o saldo nao esteja
@@ -73,7 +87,13 @@ public class ContaBancaria {
 	 * fechar a conta. Utilize System.out.print();
 	 */
 	public void fecharConta() {
-		
+		if(status == false) {
+			System.out.print("Conta inativa");
+		} else if(this.saldo > 0) {
+			System.out.print("Conta com saldo. Nao eh possivel fecha-la");
+		} else {
+			this.status = false;
+		}
 	}
 
 	/**
@@ -82,7 +102,11 @@ public class ContaBancaria {
 	 * ativa." deve ser exibida no console. Utilize System.out.print();
 	 */
 	public void reabrirConta() {
-		
+		if(this.status == false) {
+			this.status = true;
+		} else {
+			System.out.print("Conta ja ativa.");
+		}
 	}
 
 	/**
@@ -100,8 +124,20 @@ public class ContaBancaria {
 	 * @param destino
 	 */
 	public void realizarTransferencia(double quantia, ContaBancaria destino) {
-
-	}
+		if(this.status == false) {
+			System.out.print("Conta de origem inativa");
+		}
+		
+		if(destino.status == false) {
+			System.out.print("Conta de destino inativa");
+		}
+		
+		if(quantia >= this.saldo) {
+			System.out.print("Saldo insuficiente para transferencia");
+		} else {
+			destino.saldo += quantia;
+		}
+	}	
 
 	public int getNumeroConta() {
 		return numeroConta;
